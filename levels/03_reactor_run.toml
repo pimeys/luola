@@ -1,0 +1,214 @@
+# 03 — the reactor run. The core sits in the deep hall under three guns; the exit
+# only unseals when it goes critical and it is on the far side of the map.
+# Crosswind blows east.
+#
+# The cave is a pile of discs, not a box: every mass is a `blob` (a lumpy spine)
+# or a `chain` (a disc swept along one). The level's own wall is one closed lumpy
+# ring plus the same ring swept square at its full radius, so it meets the
+# structural rock casing (`sim::terrain`) with no sliver of air outside it.
+#
+# Rock is that casing, the reactor chamber's west wall (dirt there and the core
+# could be shot through a dug hole from the next room without ever entering the
+# hall under the guns) and the core's plinth, which is what keeps the reactor
+# standing clear when the tank comes down. Everything else is dirt the pilot can
+# tunnel through: the struts and their throat jaws, both decks, the lip.
+#
+# The tank is a puddle on the east deck, in the room above the hall: the deck is
+# its floor and the strut and the shell are its walls. Measured, blasting the deck
+# pours it into the hall where it settles ~25 px deep (waterline y ~1115), behind the lip at y 1080 —
+# and the core stands at y 1090, 25 px above that waterline, so the run home never
+# needs this and the core never gets wet. Nothing stands *in* the pool: water levels by
+# column totals, so a raised structure inside one just gets wet up to the surface
+# around it (`docs/design.md` §5).
+
+name = "Reactor Run"
+briefing = "Blow the core, then outrun the blast to the surface lock on the west side."
+gravity = 95.0
+fuel = 130.0
+wind = [6.0, 0.0]
+exit_locked = true
+player = { pos = [200, 200], angle = 0.0 }
+
+# --- the loadout: what a base hands out, and what you launch with -------------
+#
+# The heavy kit, and the only cave it belongs in. Everything but the casing and
+# the chamber wall is dirt, so the blast weapons cannot breach the level itself —
+# they only shape it, which is what the run needs: the struts and both decks are
+# the drill's, the tank on the east deck drops into the hall when the demolition
+# goes off, and five guns and a reactor blast are why the board carries a bubble.
+[weapons]
+available = [
+    "digger",            # the struts, both decks and the hall's lid are dirt: the drill is the route-maker
+    "plastic explosive", # the demolition charge: it drops the east deck and pours the tank into the hall
+    "electric blast",    # knocks out every turret in radius — the answer to the hall's gun line
+    "shield",            # the bubble that has to hold for the run home across five turrets and the blast
+    "nuke",              # the expensive one-shot: the hall under three guns goes in a single press
+    "torpedo",           # the one heavy round that still flies once the tank has flooded the hall
+]
+start = "digger"
+
+# --- the level's own wall: one closed, lumpy ring -----------------------------
+[[wall]]
+kind = "blob"
+points = [[60.0, 60.0], [1200.0, 45.0], [2340.0, 60.0], [2355.0, 650.0], [2340.0, 1240.0], [1200.0, 1255.0], [60.0, 1240.0], [45.0, 650.0], [60.0, 60.0]]
+radius = 100.0
+lumps = 110
+
+# The wall of the cave, as a parameter: a rounded ring inside a rectangular grid
+# traps air in all four corners, and air nobody can fly into is a hole in the map.
+[[wall]]
+kind = "border"
+thickness = 160.0
+
+# --- the western strut: the wall of the descent, in three pieces with two
+# throats (130 px and 180 px) through it --------------------------------------
+[[wall]]
+kind = "blob"
+points = [[830.0, 60.0], [850.0, 260.0]]
+radius = 70.0
+lumps = 10
+
+[[wall]]
+kind = "blob"
+points = [[820.0, 530.0], [840.0, 700.0]]
+radius = 70.0
+lumps = 10
+
+[[wall]]
+kind = "blob"
+points = [[830.0, 940.0], [845.0, 1240.0]]
+radius = 70.0
+lumps = 12
+
+# --- the landing deck, west: the exit and both pads sit on it ------------------
+[[wall]]
+kind = "chain"
+points = [[80.0, 625.0], [600.0, 640.0], [1100.0, 650.0]]
+radius = 55.0
+
+# --- the western strut's southern mass, and the low west hall ------------------
+[[wall]]
+kind = "blob"
+points = [[70.0, 1000.0], [300.0, 1100.0], [320.0, 1240.0]]
+radius = 90.0
+lumps = 16
+
+# --- the eastern strut. Its middle piece is the reactor chamber's west wall,
+# kept solid so the core cannot be reached with a bullet through a dug hole. ----
+[[wall]]
+kind = "blob"
+points = [[1700.0, 60.0], [1720.0, 120.0]]
+radius = 75.0
+lumps = 8
+
+[[wall]]
+kind = "blob"
+points = [[1690.0, 400.0], [1710.0, 810.0]]
+radius = 80.0
+lumps = 16
+material = "rock"
+
+# the lip the tank's water cannot cross, and the floor of the way out
+[[wall]]
+kind = "blob"
+points = [[1700.0, 1150.0], [1720.0, 1180.0]]
+radius = 70.0
+lumps = 8
+
+# --- the east deck: the tank's floor and the hall's lid ------------------------
+[[wall]]
+kind = "chain"
+points = [[1720.0, 800.0], [2000.0, 815.0], [2340.0, 800.0]]
+radius = 62.0
+
+# The puddle on the deck, in the dead-end room above the hall. Blast the deck and
+# this whole body drops ~340 px into the hall.
+[[liquid]]
+points = [[1810.0, 660.0], [2310.0, 660.0], [2310.0, 700.0], [1810.0, 700.0]]
+
+# --- boulders: permanent landmarks in a cave that is otherwise all dirt --------
+[[wall]]
+kind = "disc"
+center = [616.0, 700.0]
+radius = 20.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [1420.0, 1150.0]
+radius = 17.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [1120.0, 380.0]
+radius = 15.0
+material = "rock"
+
+[[turret]]
+pos = [1880.0, 1060.0]
+angle = 0.0
+
+[[turret]]
+pos = [2250.0, 1060.0]
+angle = 3.1416
+
+[[turret]]
+pos = [1850.0, 420.0]
+angle = 2.5
+
+[[turret]]
+pos = [1400.0, 1050.0]
+angle = 0.0
+
+[[turret]]
+pos = [1200.0, 500.0]
+angle = 1.5708
+
+[[drone]]
+pos = [1200.0, 900.0]
+angle = 0.0
+
+[[drone]]
+pos = [1000.0, 300.0]
+angle = 0.0
+
+[[mine]]
+pos = [1100.0, 1000.0]
+angle = 0.0
+
+[[mine]]
+pos = [1300.0, 350.0]
+angle = 0.0
+
+[[mine]]
+pos = [500.0, 800.0]
+angle = 0.0
+
+[[reactor]]
+pos = [2050.0, 1090.0]
+angle = 0.0
+
+[[fuel_pod]]
+pos = [400.0, 700.0]
+
+[[fuel_pod]]
+pos = [1000.0, 1080.0]
+
+[[fuel_pod]]
+pos = [1500.0, 400.0]
+
+[[fuel_pod]]
+pos = [2050.0, 880.0]
+
+[[pad]]
+pos = [300.0, 573.0]
+size = [56.0, 10.0]
+
+[[pad]]
+pos = [900.0, 587.0]
+size = [56.0, 10.0]
+
+[[exit]]
+pos = [150.0, 515.0]
+size = [80.0, 80.0]

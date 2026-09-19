@@ -1,0 +1,23 @@
+[package]
+name = "luola"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "luola"
+path = "src/lib.rs"
+
+[[bin]]
+name = "luola"
+path = "src/main.rs"
+
+[dependencies]
+cpal = "0.18.2"
+serde = { version = "1", features = ["derive"] }
+softbuffer = "0.4"
+toml = "1"
+winit = "0.30"
+
+[profile.release]
+opt-level = 3
+lto = "thin"

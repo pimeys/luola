@@ -1,0 +1,229 @@
+# 02 — the payload. The core sits in a dead-end chamber bottom-right; haul it
+# out through the 110 px throat with the rod swinging. The hangar deck opens
+# onto a 180 px drop shaft: the descent is free, the climb home is not.
+#
+# The cave is a pile of discs, not a box: every mass is a `blob` (a lumpy spine)
+# or a `chain` (a disc swept along one), so the walls wander the way rock does.
+# The outer ring is one closed blob — the level's own wall, organically wavy on
+# the inside — plus a `border` brush, which fills the grid's margin so the cave
+# has an outer wall even where the ring's lumps fall short of the structural rock
+# casing (`sim::terrain`). There are no boundary brushes any more.
+#
+# Rock is the hangar deck over the core chamber — dirt there and the core could
+# be blasted straight up to the exit at (2030,515), which is exactly the 110 px
+# throat the level is built around — the little lip that keeps the lake off the
+# western landing pad, and three embedded boulders. Everything else is dirt: the
+# bulkheads and their throat jaws, the western deck (which is also the lake's
+# floor and its plug), the strut, the stalactites and the sump slope.
+
+name = "Payload"
+briefing = "Torch the core loose and tow it home; the throat out is barely wider than the rod."
+gravity = 90.0
+fuel = 120.0
+require_pod = true
+player = { pos = [245, 245], angle = 0.0 }
+
+# --- the loadout: what a base hands out, and what you launch with -------------
+#
+# The payload swings and every throat is measured for the rod, so the pool is the
+# three tools that make a tow tractable: something to anchor the swing, something
+# to widen the throat, and something to build a ledge to park on. The clock is the
+# climb rate under tow (`docs/design.md` §5), so each one buys route, not damage.
+[weapons]
+available = [
+    "harpoon",  # bites the throat wall and reels you in: the anchor that takes the payload's swing out
+    "digger",   # the 110 px throat is dirt pinned on both jaws, so the drill is how the rod gets wider room
+    "dirtball", # adds terrain, so the rod can wait on a shelf you build while you line up the next corner
+]
+start = "harpoon"
+
+# --- the level's own wall: one closed, lumpy ring -----------------------------
+[[wall]]
+kind = "blob"
+points = [[70.0, 70.0], [1100.0, 80.0], [2170.0, 70.0], [2160.0, 615.0], [2170.0, 1230.0], [1100.0, 1220.0], [70.0, 1230.0], [80.0, 615.0], [70.0, 70.0]]
+radius = 70.0
+lumps = 90
+
+# The wall of the cave, as a parameter: a rounded ring inside a rectangular grid
+# traps air in all four corners, and air nobody can fly into is a hole in the map.
+# This fills the margin behind the ring, square, so nothing survives out there.
+[[wall]]
+kind = "border"
+thickness = 110.0
+
+# --- western bulkhead: the 140 px throat into the upper cave, the 140 px
+# throat into the sump. A wandering chain with a lumpy pair of discs on it. -----
+[[wall]]
+kind = "chain"
+points = [[790.0, 205.0], [775.0, 275.0]]
+radius = 75.0
+
+[[wall]]
+kind = "chain"
+points = [[775.0, 565.0], [800.0, 675.0], [785.0, 860.0]]
+radius = 75.0
+
+[[wall]]
+kind = "blob"
+points = [[780.0, 600.0], [790.0, 720.0]]
+radius = 75.0
+lumps = 10
+seed = 7
+
+[[wall]]
+kind = "chain"
+points = [[790.0, 1150.0], [775.0, 1180.0]]
+radius = 75.0
+
+# --- eastern bulkhead: its 110 px gap is the throat the core is hauled
+# through. Both jaws are pinned by plain chains so the gap stays exactly the
+# width the towed rod needs, with the lumpy mass between them. ------------------
+[[wall]]
+kind = "chain"
+points = [[1610.0, 205.0], [1595.0, 275.0]]
+radius = 75.0
+
+[[wall]]
+kind = "chain"
+points = [[1595.0, 565.0], [1610.0, 675.0], [1595.0, 790.0], [1600.0, 891.0]]
+radius = 75.0
+
+[[wall]]
+kind = "blob"
+points = [[1600.0, 620.0], [1610.0, 750.0]]
+radius = 75.0
+lumps = 10
+seed = 3
+
+# floor stub below the throat: top edge pinned at y 1078, the bottom of the
+# 110 px gap
+[[wall]]
+kind = "chain"
+points = [[1612.0, 1153.0], [1605.0, 1175.0]]
+radius = 75.0
+
+# --- western deck, over the dead-end sump: soft fill, and the lake's floor -----
+# Its top edge wanders around y 560..567, so the basin the lake settles in has a
+# natural bottom; blasting through it drains the lake into the sump below.
+[[wall]]
+kind = "chain"
+points = [[150.0, 625.0], [270.0, 621.0], [390.0, 627.0], [510.0, 622.0], [630.0, 620.0], [740.0, 625.0], [790.0, 622.0]]
+radius = 60.0
+
+# retaining lip: holds the lake back from the western landing pad. One rock
+# disc, crest at y 538 — 18 px above the settled waterline at y 556 — with its
+# foot buried in the deck.
+[[wall]]
+kind = "disc"
+center = [565.0, 558.0]
+radius = 20.0
+material = "rock"
+
+# --- hangar deck. Rock: blast it and the core can be lifted straight to the
+# exit, which is exactly the climb the level is built to deny. West end at
+# x 1037 leaves the ~180 px drop shaft beside the western deck. -----------------
+[[wall]]
+kind = "chain"
+points = [[1097.0, 625.0], [1210.0, 617.0], [1320.0, 627.0], [1440.0, 619.0], [1550.0, 625.0], [1660.0, 621.0], [1780.0, 625.0], [1900.0, 621.0], [2030.0, 625.0]]
+radius = 60.0
+material = "rock"
+
+# --- stalactites off the ring: the weave at the start, and one on the climb ----
+[[wall]]
+kind = "blob"
+points = [[1200.0, 210.0], [1215.0, 380.0]]
+radius = 68.0
+lumps = 9
+
+[[wall]]
+kind = "blob"
+points = [[1740.0, 210.0], [1755.0, 395.0]]
+radius = 68.0
+lumps = 10
+
+# --- strut anchoring the turret deck, hanging over the lower passage -----------
+[[wall]]
+kind = "chain"
+points = [[1290.0, 690.0], [1288.0, 800.0], [1292.0, 895.0]]
+radius = 52.0
+
+# --- sump slope: a chain running down into the bottom-west corner, clear of
+# the bulkhead's sump throat -----------------------------------------------
+[[wall]]
+kind = "chain"
+points = [[430.0, 1150.0], [520.0, 1090.0], [600.0, 1060.0]]
+radius = 55.0
+
+# --- Three boulders: a grey crown on the dry end of the western deck, one
+# buried in the bulkhead and one half-buried in the sump slope. ----------------
+[[wall]]
+kind = "disc"
+center = [770.0, 690.0]
+radius = 22.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [686.0, 556.0]
+radius = 22.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [560.0, 1120.0]
+radius = 22.0
+material = "rock"
+
+# Lake on the western deck, beside the 187 px drop shaft. The deck is its floor;
+# the water is held by the ring to the west and the lip to the east.
+# Blasting the deck under it drains the lake into the sump below (a dead end).
+[[liquid]]
+points = [[160.0, 553.0], [555.0, 553.0], [555.0, 566.0], [160.0, 566.0]]
+
+[[turret]]
+pos = [1275.0, 560.0]
+angle = -1.5708
+
+[[turret]]
+pos = [1860.0, 560.0]
+angle = -1.5708
+
+[[turret]]
+pos = [1330.0, 1130.0]
+angle = -1.5708
+
+[[mine]]
+pos = [1120.0, 855.0]
+angle = 0.0
+
+[[mine]]
+pos = [1120.0, 345.0]
+angle = 0.0
+
+[[pod]]
+pos = [1950.0, 1090.0]
+angle = 0.0
+
+[[fuel_pod]]
+pos = [280.0, 1120.0]
+
+[[fuel_pod]]
+pos = [1015.0, 1130.0]
+
+[[fuel_pod]]
+pos = [1430.0, 545.0]
+
+[[fuel_pod]]
+pos = [1925.0, 215.0]
+
+[[pad]]
+pos = [615.0, 570.0]
+size = [56.0, 10.0]
+
+[[pad]]
+pos = [1740.0, 570.0]
+size = [56.0, 10.0]
+
+[[exit]]
+pos = [2030.0, 515.0]
+size = [80.0, 80.0]

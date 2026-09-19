@@ -1,0 +1,140 @@
+# 01 — a way down. The hangar is top right, the landing zone is top left, so the
+# cave is flown the wrong way round on purpose. Teaching cave: no turrets, no
+# drones, no mines, generous fuel. The trough at the bottom is the lesson.
+#
+# The cave is a pile of discs, not a box: every mass is a `blob` (a lumpy spine)
+# or a `chain` (a disc swept along one), so the walls wander the way rock does.
+# The outer ring is one closed blob — the level's own wall, organically wavy on
+# the inside — and outside it there is nothing but the structural rock casing the
+# terrain grid carries (`sim::terrain`).
+#
+# Nothing in here is rock except that casing, so the whole cave can be chewed
+# open; the masses only *look* permanent. The floor trough is dirt too, so a
+# pilot who shoots it open drains the pool out from under themselves.
+
+name = "First Descent"
+briefing = "The landing zone is behind you, at the top of the far wall. Follow the cave round; the trough at the bottom is the long way down."
+gravity = 80.0
+fuel = 110.0
+player = { pos = [1350, 200], angle = 3.1415927 }
+
+# --- the loadout: what a base hands out, and what you launch with -------------
+#
+# The teaching cave, so the pool is three weapons a pilot can read off the
+# trigger itself: a faster gun, a spread, and a ricochet. None carries a blast
+# or a drill — the whole pool chews dirt a shot at a time, the way the gun
+# already does — so a fumbled first minute cannot shoot the trough open at a
+# stroke; that lesson stays the pilot's to learn, not an accident of the loadout.
+[weapons]
+available = [
+    "autofire",  # the gun with the safety off: the one special that needs no explanation
+    "shotgun",   # a spread shows what a special does to dirt, visibly, in one pull
+    "bouncer",   # ricochets off the wandering walls, so a shot at nothing still teaches the cave's shape
+]
+start = "autofire"
+
+# --- the level's own wall: one closed, lumpy ring -----------------------------
+[[wall]]
+kind = "blob"
+points = [[60.0, 60.0], [800.0, 45.0], [1560.0, 60.0], [1575.0, 560.0], [1560.0, 1080.0], [800.0, 1140.0], [60.0, 1080.0], [45.0, 560.0], [60.0, 60.0]]
+radius = 95.0
+lumps = 90
+
+# The wall of the cave, as a parameter: a rounded ring inside a rectangular grid
+# traps air in all four corners, and air nobody can fly into is a hole in the map.
+# This fills the margin behind the ring, square, so nothing survives out there.
+[[wall]]
+kind = "border"
+thickness = 150.0
+
+# --- the island the cave winds around ----------------------------------------
+[[wall]]
+kind = "blob"
+points = [[600.0, 400.0], [770.0, 350.0], [930.0, 430.0], [900.0, 590.0], [740.0, 610.0], [620.0, 520.0]]
+radius = 95.0
+lumps = 30
+
+# --- the trough: two ridges rising off the cave floor ------------------------
+#
+# The floor is the ring's own bottom band, so the pool needs nothing under it but
+# the ridges that hold it: crests above the waterline, flanks buried below the
+# floor line so no air is trapped beneath them.
+[[wall]]
+kind = "blob"
+points = [[600.0, 1030.0], [640.0, 1060.0]]
+radius = 80.0
+lumps = 7
+
+[[wall]]
+kind = "blob"
+points = [[1150.0, 1020.0], [1200.0, 1050.0]]
+radius = 78.0
+lumps = 7
+
+[[liquid]]
+points = [[680.0, 950.0], [1130.0, 950.0], [1130.0, 1120.0], [680.0, 1120.0]]
+
+# --- stalactites off the ring: the weave at the start, and one on the climb ---
+[[wall]]
+kind = "blob"
+points = [[1150.0, 70.0], [1175.0, 210.0]]
+radius = 65.0
+lumps = 9
+
+[[wall]]
+kind = "blob"
+points = [[330.0, 70.0], [355.0, 200.0], [330.0, 300.0]]
+radius = 58.0
+lumps = 10
+
+# --- the pinch on the climb: masses that close the corridor to a chimney ------
+[[wall]]
+kind = "blob"
+points = [[410.0, 430.0], [440.0, 600.0]]
+radius = 70.0
+lumps = 12
+
+[[wall]]
+kind = "blob"
+points = [[1230.0, 310.0], [1255.0, 480.0]]
+radius = 60.0
+lumps = 9
+
+# --- the shelf the landing pad is cut into -----------------------------------
+[[wall]]
+kind = "chain"
+points = [[195.0, 680.0], [345.0, 700.0]]
+radius = 40.0
+
+# --- three boulders: permanent landmarks in a cave that is otherwise all dirt --
+[[wall]]
+kind = "disc"
+center = [838.0, 268.0]
+radius = 19.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [686.0, 574.0]
+radius = 15.0
+material = "rock"
+
+[[wall]]
+kind = "disc"
+center = [1428.0, 706.0]
+radius = 17.0
+material = "rock"
+
+[[fuel_pod]]
+pos = [1360.0, 520.0]
+
+[[fuel_pod]]
+pos = [380.0, 800.0]
+
+[[pad]]
+pos = [270.0, 646.0]
+size = [56.0, 10.0]
+
+[[exit]]
+pos = [250.0, 200.0]
+size = [80.0, 80.0]
