@@ -17,6 +17,27 @@ sound is synthesized at runtime.
 cargo run --release
 ```
 
+## Screenshots
+
+Real frames from the game's own software renderer, written straight to PNG with
+`--screenshot` on a machine with no display. HUD, radar, particles and terrain
+are all rasterized by the same code that draws the window.
+
+**Level 1 — First Descent.** The ship under thrust in the opening cave, objective
+"reach the exit" on the status line.
+
+![Luola, level 1: the ship flying through the first cave](docs/screenshots/level1_first_descent.png)
+
+**Level 2 — Payload.** Harpoon loaded, the payload rod resting in the water it has
+to be towed out of.
+
+![Luola, level 2: the payload rod in the water](docs/screenshots/level2_payload.png)
+
+**Level 3 — Reactor Run.** Digging towards the reactor with the shield down, one
+of five turrets in range.
+
+![Luola, level 3: digging towards the reactor](docs/screenshots/level3_reactor.png)
+
 ## What this is
 
 A small but complete game in the Finnish cave-flyer tradition (Turboraketti,
@@ -31,7 +52,8 @@ AUTS, Wings, Gravity Force 2):
   water that falls, spreads and levels out, moving gates and crushers, turrets,
   drones, mines, reactors, hidden exits and a signal graph.
 - **33 special weapons** from the era's `WEAPONS.DAT` rosters, one mounted at a
-  time beside the always-available gun, chosen and re-armed at landing pads.
+  time beside the always-available gun, chosen on each level's briefing card and
+  re-armed at landing pads.
 - **Headless modes** for validation, scripted simulation, replay verification,
   whole-level map renders and offscreen PNG screenshots.
 
@@ -112,9 +134,10 @@ A granular wall is tough — it takes several hits and grabs a slow ship that
 touches it, holding you until you shoot the wall away around your hull. Rock is
 permanent. Water is cover: it stops bullets and drags you down.
 
-**Weapons.** The gun never runs out. Your special is a second trigger, swapped
-and re-armed only on a landing pad. `X` jettisons the magazine: you lose the
-ammo and fly measurably lighter and quicker — land again to get it back.
+**Weapons.** The gun never runs out. Your special is a second trigger, picked on the
+briefing card before each level starts and re-armed at landing pads. `X` jettisons
+the magazine: you lose the ammo and fly measurably lighter and quicker — land again
+to get it back.
 
 | Action | Classic (default) | Modern |
 |---|---|---|
@@ -123,7 +146,7 @@ ammo and fly measurably lighter and quicker — land again to get it back.
 | Fire the gun | `Space` | left mouse or `Space` |
 | Fire the special | `F` | `F` |
 | Beam | `E` (hold) | right mouse or `E` |
-| Change weapon | `A`/`D` or `←`/`→`, parked on a pad | `A`/`D`, parked on a pad |
+| Choose / change weapon | `A`/`D` or `←`/`→`, on the briefing card or parked on a pad | `A`/`D`, on the briefing card or parked on a pad |
 | Jettison the magazine | `X` | `X` |
 
 `P` pause, `R` restart, `C` switch scheme, `F1` record a replay, `H`/`F2` help,
@@ -177,6 +200,7 @@ real pixels.
 | `src/audio/` | The synthesizer: engine, weapons, explosions, klaxon — all generated sample by sample. |
 | `levels/` | The campaign as TOML. |
 | `tests/` | Behaviour tests for the simulation, renderer, shell and CLI. |
+| `docs/screenshots/` | Offscreen PNG frames from `--screenshot`, used in this README. |
 | `docs/design.md` | How the code works and why, system by system, with measurements. |
 | `docs/game_mechanics.md` | The sourced genre reference the game was built against. |
 | `docs/finnish_cave_flyer_weapons.md` | The era's `WEAPONS.DAT` rosters and what this game took from them. |
